@@ -27,7 +27,8 @@ class SuperAdminSeeder extends Seeder
             'email' => 'super@admin.com',
         ], [
             'name' => 'Super Admin',
-            'role_id' => $superAdminRole->id
+            'role_id' => $superAdminRole->id,
+            'password' => bcrypt('password'),
         ]);
     }
 }
