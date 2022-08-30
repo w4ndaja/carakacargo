@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,9 +15,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::with('role:id,name')->search($request->search, 'name', 'email')->paginate()->withQueryString();
-        $roles = Role::all();
-        return Inertia::render('Master/User/Index', compact('users', 'roles'));
+        return Inertia::render('Master/User/Index', [
+            'users' => function() use ($request){
+                return User::search($request->search, 'name', 'email')->paginate()->withQueryString();
+            }
+        ]);
     }
 
     /**
@@ -33,7 +34,7 @@ class UserController extends Controller
             'email' => 'required|string|unique:users,email',
             'name' => 'required|string',
             'password' => 'required|string|confirmed',
-            'role_id' => 'required|integer',
+            'role' => 'required|string',
         ]);
         $form['password'] = bcrypt($request->password);
         $user = User::create($form);
@@ -53,7 +54,7 @@ class UserController extends Controller
             'email' => 'required|string|unique:users,email,' . $user->id,
             'name' => 'required|string',
             'password' => 'nullable|string|confirmed',
-            'role_id' => 'required|integer',
+            'role' => 'required|string',
         ]);
 
         if(!$request->exists('password') || $request->password == ''){

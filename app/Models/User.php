@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id',
+        'role',
     ];
 
     /**
@@ -35,8 +35,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function role()
+    public function driver()
     {
-        return $this->belongsTo(Role::class);
+        return $this->hasOne(Driver::class);
     }
 }

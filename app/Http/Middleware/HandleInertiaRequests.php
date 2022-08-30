@@ -37,7 +37,7 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => function () use ($request) {
                 return [
-                    'user' => optional($request->user())->load('role:id,name'),
+                    'user' => $request->user(),
                 ];
             },
             'logo' => function () {
@@ -47,9 +47,12 @@ class HandleInertiaRequests extends Middleware
                 return (new Ziggy)->toArray();
             },
             'flash' => [
-                'success' => function() use ($request){
+                'success' => function () use ($request) {
                     return $request->session()->get('success');
-                }
+                },
+                'data' => function () use ($request) {
+                    return $request->session()->get('data');
+                },
             ]
         ]);
     }

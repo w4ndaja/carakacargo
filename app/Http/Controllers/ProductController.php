@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::with('category:id,name')->search($request->search, 'name', 'code', 'description')->paginate()->withQueryString();
+        $products = Product::with('category:id,name')->search($request->search, 'code', 'name', 'resi_no')->paginate()->withQueryString();
         $categories = Category::all();
         return Inertia::render('Master/Product/Index', compact('products', 'categories'));
     }

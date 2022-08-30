@@ -15,19 +15,11 @@ class SuperAdminSeeder extends Seeder
      */
     public function run()
     {
-        $superAdminRole = Role::updateOrCreate([
-            'name' => 'Super Admin'
-        ]);
-        
-        $adminRole = Role::updateOrCreate([
-            'name' => 'Admin'
-        ]);
-
         User::updateOrCreate([
             'email' => 'super@admin.com',
         ], [
             'name' => 'Super Admin',
-            'role_id' => $superAdminRole->id,
+            'role' => 'Super Admin',
             'password' => bcrypt('password'),
         ]);
     }

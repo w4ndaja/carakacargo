@@ -16,12 +16,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect()->route('dashboard');
 });
 
 Route::get('/dashboard', function () {
@@ -34,8 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('clients', 'ClientController');
     Route::resource('deliveries', 'DeliveryController');
     Route::resource('users', 'UserController');
+    Route::resource('vehicles', 'VehicleController');
+    Route::resource('drivers', 'DriverController');
+    Route::post('provinces/{province}/cities', 'GeoController@citiesByProvince')->name('citiesByProvince');
+    Route::post('cities/{city}/districs', 'GeoController@districtsByCity')->name('districtsByCity');
 });
-
-// Route::get('cities/by-province/{province}', function($province))
 
 require __DIR__ . '/auth.php';

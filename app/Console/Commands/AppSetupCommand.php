@@ -37,7 +37,8 @@ class AppSetupCommand extends Command
      */
     public function handle()
     {
-        $this->call('migrate');
+        $this->call('migrate:fresh');
+        $this->call('laravolt:indonesia:seed');
         $this->call('db:seed', [
             '--class' => 'SuperAdminSeeder'
         ]);

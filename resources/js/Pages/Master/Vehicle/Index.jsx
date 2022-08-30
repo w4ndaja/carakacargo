@@ -6,7 +6,7 @@ import React, { useCallback, useRef, useState } from 'react'
 import DeletePrompt from './DeletePrompt'
 import Form from './Form'
 
-export default function Product({ products }) {
+export default function Vehicle({ vehicles }) {
   const { flash } = usePage().props
   const formRef = useRef()
   const deletePromptRef = useRef()
@@ -38,10 +38,11 @@ export default function Product({ products }) {
 
   return (
     <>
-      <Head title="Carakacargo -  Gudang" />
+      <Head title="Carakacargo - Kendaraan" />
+
       <div className="p-10 flex-1 min-h-max flex flex-col pb-20 md:pb-10">
-        <div className="text-3xl font-semibold text-indigo-900">Gudang</div>
-        <div className="text-gray-600 mt-2">List Gudang</div>
+        <div className="text-3xl font-semibold text-indigo-900">Master</div>
+        <div className="text-gray-600 mt-2">Kendaraan</div>
         <div className="flex items-center justify-between mt-6">
           <div className="relative flex items-center">
             <label className='absolute left-3 z-20' htmlFor="input_search">
@@ -60,21 +61,27 @@ export default function Product({ products }) {
             <thead>
               <tr>
                 <th className='border-r last:border-r-0 border-b py-2'>Kode</th>
-                <th className='border-r last:border-r-0 border-b py-2'>Nama</th>
-                <th className='border-r last:border-r-0 border-b py-2'>Kategori</th>
-                <th className='border-r last:border-r-0 border-b py-2'>Deskripsi</th>
+                <th className='border-r last:border-r-0 border-b py-2'>Merk</th>
+                <th className='border-r last:border-r-0 border-b py-2'>Tipe</th>
+                <th className='border-r last:border-r-0 border-b py-2'>No Pol</th>
+                <th className='border-r last:border-r-0 border-b py-2'>Tahun</th>
+                <th className='border-r last:border-r-0 border-b py-2'>Masa Berlaku STNK</th>
+                <th className='border-r last:border-r-0 border-b py-2'>Masa Berlaku KIR</th>
                 <th className='border-r last:border-r-0 border-b py-2'>#</th>
               </tr>
             </thead>
             <tbody>
-              {products.data.map((item, i) => (
+              {vehicles.data.map((item, i) => (
                 <tr key={i}>
                   <th className='border-r last:border-r-0 border-b py-2'>{item.code}</th>
-                  <th className='border-r last:border-r-0 border-b py-2'>{item.name}</th>
-                  <th className='border-r last:border-r-0 border-b py-2'>{item.category?.name}</th>
-                  <th className='border-r last:border-r-0 border-b py-2'>{item.description}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.merk}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.type}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.police_no}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.year}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.license_valid_until_translated}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.keur_valid_until_translated}</th>
                   <th className='border-r last:border-r-0 border-b py-2'>
-                    <div className="flex w-full justify-center gap-3">
+                    <div className="flex gap-3 w-100 justify-center">
                       <button role="button" type="button" onClick={e => edit(e, item)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                           <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
@@ -89,7 +96,7 @@ export default function Product({ products }) {
                   </th>
                 </tr>
               ))}
-              {products.total == 0 && <tr><td colSpan={999} className="text-center px-4 py-2 text-indigo-300 text-xl">
+              {vehicles.total == 0 && <tr><td colSpan={999} className="text-center px-4 py-2 text-indigo-300 text-xl">
                 <div className="flex flex-col items-center mt-10">
                   <svg xmlns="http://www.w3.org/2000/svg" width={64} height={64} fill="currentColor" className="bi bi-bag-dash" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M5.5 10a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z" />
@@ -102,7 +109,7 @@ export default function Product({ products }) {
           </table>
         </div>
         <div className="flex mt-auto">
-          {products.links.map(item => <Link href={item.url} className="bg-indigo-600 text-white px-4 py-2 first:rounded-l-xl last:rounded-r-xl hover:bg-indigo-500" dangerouslySetInnerHTML={{ __html: item.label }}></Link>)}
+          {vehicles.links.map(item => <Link href={item.url} className="bg-indigo-600 text-white px-4 py-2 first:rounded-l-xl last:rounded-r-xl hover:bg-indigo-500" dangerouslySetInnerHTML={{ __html: item.label }}></Link>)}
         </div>
       </div>
       <Form ref={formRef} />
@@ -110,4 +117,4 @@ export default function Product({ products }) {
     </>
   )
 }
-Product.layout = page => <Authenticated >{page}</Authenticated>
+Vehicle.layout = page => <Authenticated >{page}</Authenticated>

@@ -101,7 +101,7 @@ export default function Product({ clients }) {
           </table>
         </div>
         <div className="flex mt-auto">
-          {clients.links.map(item => <Link href={item.url} className="bg-indigo-600 text-white px-4 py-2 first:rounded-l-xl last:rounded-r-xl hover:bg-indigo-500" dangerouslySetInnerHTML={{ __html: item.label }}></Link>)}
+          {clients.links.map((item, i) => <Link key={i} href={item.url} className="bg-indigo-600 text-white px-4 py-2 first:rounded-l-xl last:rounded-r-xl hover:bg-indigo-500" dangerouslySetInnerHTML={{ __html: item.label }}></Link>)}
         </div>
       </div>
       <Form ref={formRef} />

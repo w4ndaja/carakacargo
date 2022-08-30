@@ -16,9 +16,14 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $clients = Client::search($request->search, 'name', 'phone')->paginate()->withQueryString();
-        $provinces = Province::all();
-        return Inertia::render('Master/Client/Index', compact('clients', 'provinces'));
+        return Inertia::render('Master/Client/Index', [
+            'clients' => function() use ($request){
+                return Client::search($request->search, 'name', 'phone')->paginate()->withQueryString();
+            },
+            'provinces' => function () {
+                return Province::all();
+            }
+        ]);
     }
 
     /**
