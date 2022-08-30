@@ -13,6 +13,7 @@ class Driver extends Model
     protected $casts = [
         'license_valid_until' => 'datetime:Y-m-d',
     ];
+
     protected $appends = ['license_valid_until_translated'];
 
     public function getLicenseValidUntilTranslatedAttribute()
