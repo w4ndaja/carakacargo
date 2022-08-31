@@ -44,12 +44,12 @@ export default function Product({ products }) {
         <div className="text-gray-600 mt-2">List Gudang</div>
         <div className="flex items-center justify-between mt-6">
           <div className="relative flex items-center">
-            <label className='absolute left-3 z-20' htmlFor="input_search">
+            <label className='absolute left-3 z-10' htmlFor="input_search">
               <svg className="fill-gray-400" xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
               </svg>
             </label>
-            <input id="input_search" value={search} onChange={searchData} type="text" className="z-10 text-gray-600 pl-10 pr-4 py-2 border rounded-xl max-w-[20px] focus:max-w-[200px] focus:md:max-w-max transition-width absolute left-0 md:max-w-max" />
+            <input id="input_search" value={search} onChange={searchData} type="text" className="text-gray-600 pl-10 pr-4 py-2 border rounded-xl max-w-[20px] focus:max-w-[200px] focus:md:max-w-max transition-width absolute left-0 md:max-w-max" />
           </div>
           <div className="flex gap-3">
             <button onClick={create} className="bg-green-500 px-4 py-2 rounded-xl text-white hover:-translate-x-1 transition">Tambah</button>

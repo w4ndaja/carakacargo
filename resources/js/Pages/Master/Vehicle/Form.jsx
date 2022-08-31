@@ -50,8 +50,11 @@ function Form(props, ref) {
         <Dialog { ...props } open={ isOpen } onClose={ () => setIsOpen(false) } className="fixed z-10 inset-0 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen">
                 <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
-                <div className="relative bg-gray-50 shadow-xl rounded-2xl max-w-sm mx-auto p-5 min-w-[420px]">
-                    <Dialog.Title className="text-xl text-center mb-3 border-b pb-3">{ title }</Dialog.Title>
+                <div className="relative bg-gray-50 shadow-xl rounded-2xl max-w-sm mx-auto p-5 min-w-full md:min-w-[420px]">
+                    <Dialog.Title className="text-xl flex justify-center mb-3 border-b pb-3">
+                        <span>{ title }</span>
+                        <button className='ml-auto' onClick={() => setIsOpen(false)}>x</button>
+                    </Dialog.Title>
                     <form onSubmit={ submit } ref={ formRef }>
                         <div className="mb-3 flex flex-col gap-2">
                             <label htmlFor="input_code">Kode</label>

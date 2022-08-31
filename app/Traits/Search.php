@@ -9,7 +9,7 @@ trait Search
         if (!empty($search)) {
             $q->where($columns[0], 'like', '%' . $search . '%');
             foreach ($columns as $i => $column) {
-                if ($i > 1) $q->orWhere($column, 'like', '%' . $search . '%');
+                if ($i > 0) $q->orWhere($column, 'like', '%' . $search . '%');
             }
         }
     }
