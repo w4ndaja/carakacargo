@@ -18,14 +18,14 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id');
             $table->string('code')->unique();
             $table->string('label');
-            $table->string('resi_no');
+            $table->string('resi_no')->nullable();
             $table->integer('koli');
             $table->integer('width');
             $table->integer('height');
             $table->integer('length');
             $table->integer('weight');
-            $table->integer('volume_weight');
-            $table->integer('volume_total');
+            $table->integer('volume_weight')->nullable();
+            $table->integer('volume_total')->nullable();
             $table->timestamps();
         });
     }

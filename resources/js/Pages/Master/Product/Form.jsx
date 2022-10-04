@@ -56,9 +56,34 @@ function Form(props, ref) {
                             {errors.code && (<span className="text-red-500">{errors.code}</span>)}
                         </div>
                         <div className="mb-3 flex flex-col gap-2">
-                            <label htmlFor="input_name">Nama</label>
-                            <input name="name" defaultValue={data.name} type="text" className={`px-4 py-2 rounded shadow ${errors.name ? 'border-red-500' : ''}`} id="input_name" />
-                            {errors.name && (<span className="text-red-500">{errors.name}</span>)}
+                            <label htmlFor="input_label">Label</label>
+                            <input name="label" defaultValue={data.label} type="text" className={`px-4 py-2 rounded shadow ${errors.label ? 'border-red-500' : ''}`} id="input_label" />
+                            {errors.label && (<span className="text-red-500">{errors.label}</span>)}
+                        </div>
+                        <div className="mb-3 flex flex-col gap-2">
+                            <label htmlFor="input_koli">Jumlah Koli</label>
+                            <input name="koli" defaultValue={data.koli} type="number" className={`px-4 py-2 rounded shadow ${errors.koli ? 'border-red-500' : ''}`} id="input_koli" />
+                            {errors.koli && (<span className="text-red-500">{errors.koli}</span>)}
+                        </div>
+                        <div className="mb-3 flex flex-col gap-2">
+                            <label htmlFor="input_length">Panjang</label>
+                            <input name="length" defaultValue={data.length} type="number" className={`px-4 py-2 rounded shadow ${errors.length ? 'border-red-500' : ''}`} id="input_length" />
+                            {errors.length && (<span className="text-red-500">{errors.length}</span>)}
+                        </div>
+                        <div className="mb-3 flex flex-col gap-2">
+                            <label htmlFor="input_width">Lebar</label>
+                            <input name="width" defaultValue={data.width} type="number" className={`px-4 py-2 rounded shadow ${errors.width ? 'border-red-500' : ''}`} id="input_width" />
+                            {errors.width && (<span className="text-red-500">{errors.width}</span>)}
+                        </div>
+                        <div className="mb-3 flex flex-col gap-2">
+                            <label htmlFor="input_height">Tinggi</label>
+                            <input name="height" defaultValue={data.height} type="number" className={`px-4 py-2 rounded shadow ${errors.height ? 'border-red-500' : ''}`} id="input_height" />
+                            {errors.height && (<span className="text-red-500">{errors.height}</span>)}
+                        </div>
+                        <div className="mb-3 flex flex-col gap-2">
+                            <label htmlFor="input_weight">Berat</label>
+                            <input name="weight" defaultValue={data.weight} type="number" className={`px-4 py-2 rounded shadow ${errors.weight ? 'border-red-500' : ''}`} id="input_weight" />
+                            {errors.weight && (<span className="text-red-500">{errors.weight}</span>)}
                         </div>
                         <div className="mb-3 flex flex-col gap-2">
                             <label htmlFor="input_category_id">Kategori</label>
@@ -69,11 +94,6 @@ function Form(props, ref) {
                                 ))}
                             </select>
                             {errors.category_id && (<span className="text-red-500">{errors.category_id}</span>)}
-                        </div>
-                        <div className="mb-3 flex flex-col gap-2">
-                            <label htmlFor="input_description">Deskripsi</label>
-                            <textarea name="description" defaultValue={data.description} type="text" className={`px-4 py-2 rounded shadow ${errors.description ? 'border-red-500' : ''}`} id="input_description" />
-                            {errors.description && (<span className="text-red-500">{errors.description}</span>)}
                         </div>
                         <div className="mb-3 flex flex-col gap-2">
                             <button type="submit" className="px-3 py-1 bg-indigo-700 text-white shadow rounded">Kirim</button>

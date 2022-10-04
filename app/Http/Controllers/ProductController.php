@@ -31,9 +31,13 @@ class ProductController extends Controller
     {
         $form = $request->validate([
             'code' => 'required|string|unique:products,code',
-            'name' => 'required|string',
+            'label' => 'required|string',
+            'koli' => 'required|integer',
+            'width' => 'required|integer',
+            'height' => 'required|integer',
+            'length' => 'required|integer',
+            'weight' => 'required|integer',
             'category_id' => 'required|integer',
-            'description' => 'nullable|string',
         ]);
         Product::create($form);
         return back()->with('success', 'Barang berhasil ditambah!');

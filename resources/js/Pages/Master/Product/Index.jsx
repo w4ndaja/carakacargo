@@ -41,7 +41,7 @@ export default function Product({ products }) {
       <Head title="Carakacargo -  Gudang" />
       <div className="p-10 flex-1 min-h-max flex flex-col pb-20 md:pb-10">
         <div className="text-3xl font-semibold text-indigo-900">Gudang</div>
-        <div className="text-gray-600 mt-2">List Gudang</div>
+        <div className="text-gray-600 mt-2">List Barang Gudang</div>
         <div className="flex items-center justify-between mt-6">
           <div className="relative flex items-center">
             <label className='absolute left-3 z-10' htmlFor="input_search">
@@ -60,9 +60,12 @@ export default function Product({ products }) {
             <thead>
               <tr>
                 <th className='border-r last:border-r-0 border-b py-2'>Kode</th>
-                <th className='border-r last:border-r-0 border-b py-2'>Nama</th>
-                <th className='border-r last:border-r-0 border-b py-2'>Kategori</th>
-                <th className='border-r last:border-r-0 border-b py-2'>Deskripsi</th>
+                <th className='border-r last:border-r-0 border-b py-2'>Label</th>
+                <th className='border-r last:border-r-0 border-b py-2'>Jumlah Koli</th>
+                <th className='border-r last:border-r-0 border-b py-2'>Panjang</th>
+                <th className='border-r last:border-r-0 border-b py-2'>Lebar</th>
+                <th className='border-r last:border-r-0 border-b py-2'>Tinggi</th>
+                <th className='border-r last:border-r-0 border-b py-2'>Berat</th>
                 <th className='border-r last:border-r-0 border-b py-2'>#</th>
               </tr>
             </thead>
@@ -70,9 +73,12 @@ export default function Product({ products }) {
               {products.data.map((item, i) => (
                 <tr key={i}>
                   <th className='border-r last:border-r-0 border-b py-2'>{item.code}</th>
-                  <th className='border-r last:border-r-0 border-b py-2'>{item.name}</th>
-                  <th className='border-r last:border-r-0 border-b py-2'>{item.category?.name}</th>
-                  <th className='border-r last:border-r-0 border-b py-2'>{item.description}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.label}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.koli}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.length}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.width}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.height}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.weight}</th>
                   <th className='border-r last:border-r-0 border-b py-2'>
                     <div className="flex w-full justify-center gap-3">
                       <button role="button" type="button" onClick={e => edit(e, item)}>
