@@ -19,7 +19,7 @@ class DriverController extends Controller
     {
         return Inertia::render('Master/Driver/Index', [
             'drivers' => function () use ($request) {
-                return Driver::with('vehicle', 'user')->search($request->search, 'code', 'merk', 'type', 'police_no')->paginate(10)->withQueryString();
+                return Driver::with('vehicle', 'user')->search($request->search, 'code', 'merk', 'type', 'police_no')->orderBy('license_valid_until')->paginate(10)->withQueryString();
             },
             'vehicles' => function() use ($request){
                 return Vehicle::all();

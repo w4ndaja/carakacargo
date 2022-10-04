@@ -15,7 +15,7 @@ class VehicleController extends Controller
      */
     public function index(Request $request)
     {
-        $vehicles = Vehicle::search($request->search, 'code', 'merk', 'type', 'police_no')->paginate(10)->withQueryString();
+        $vehicles = Vehicle::search($request->search, 'code', 'merk', 'type', 'police_no')->orderBy('license_valid_until')->paginate(10)->withQueryString();
         return Inertia::render('Master/Vehicle/Index', compact('vehicles'));
     }
 
