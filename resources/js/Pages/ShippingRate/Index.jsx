@@ -6,16 +6,12 @@ import DeletePrompt from "./DeletePrompt";
 import Form from "./Form";
 
 export default function ShippingRate({
-    deliveries,
+    shippingRates,
     provinces,
     originCities,
     originDistricts,
     destCities,
     destDistricts,
-    drivers,
-    products,
-    clients,
-    shippingRate,
 }) {
     const { flash } = usePage().props;
     const formRef = useRef();
@@ -117,13 +113,13 @@ export default function ShippingRate({
 
     return (
         <>
-            <Head title="Carakacargo - Pengiriman" />
+            <Head title="Carakacargo - Tarif Pengiriman" />
 
             <div className="p-10 flex-1 min-h-max flex flex-col pb-20 md:pb-10">
                 <div className="text-3xl font-semibold text-indigo-900">
-                    Pengiriman
+                    Tarif
                 </div>
-                <div className="text-gray-600 mt-2">Pengiriman</div>
+                <div className="text-gray-600 mt-2">Tarif Pengiriman</div>
                 <div className="flex items-center justify-between mt-6">
                     <div className="flex gap-3">
                         <button
@@ -138,15 +134,6 @@ export default function ShippingRate({
                     <table className="w-full">
                         <thead>
                             <tr className="text-center">
-                                <th className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                    Kode Driver
-                                </th>
-                                <th className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                    Kode Barang
-                                </th>
-                                <th className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                    Resi
-                                </th>
                                 <th
                                     colSpan={3}
                                     className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs"
@@ -160,16 +147,10 @@ export default function ShippingRate({
                                     Tujuan
                                 </th>
                                 <th className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                    Layanan
-                                </th>
-                                <th className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                    Status
+                                    Jenis Pengiriman
                                 </th>
                                 <th className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
                                     Tarif
-                                </th>
-                                <th className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                    Kustomer
                                 </th>
                                 <th className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
                                     #
@@ -177,17 +158,8 @@ export default function ShippingRate({
                             </tr>
                         </thead>
                         <tbody>
-                            {deliveries.data.map((item, i) => (
+                            {shippingRates.data.map((item, i) => (
                                 <tr key={i}>
-                                    <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                        {item.driver?.user?.name}
-                                    </td>
-                                    <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                        {item.product?.code}
-                                    </td>
-                                    <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                        {item.waybill}
-                                    </td>
                                     <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
                                         {item.origin_province?.name}
                                     </td>
@@ -206,17 +178,11 @@ export default function ShippingRate({
                                     <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
                                         {item.dest_district?.name}
                                     </td>
-                                    <td className="text-capitalize border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                        {item.service_type}
-                                    </td>
                                     <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                        {item.status}
+                                        {item.shipping_channel}
                                     </td>
                                     <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs text-right">
-                                        Rp. {item._price || "-"}
-                                    </td>
-                                    <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                        {item.client?.code}
+                                        {item.price}
                                     </td>
                                     <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
                                         <div className="flex gap-3 w-100 justify-center">
@@ -258,7 +224,7 @@ export default function ShippingRate({
                                     </td>
                                 </tr>
                             ))}
-                            {deliveries.total == 0 && (
+                            {shippingRates.total == 0 && (
                                 <tr>
                                     <td
                                         colSpan={999}
@@ -291,7 +257,7 @@ export default function ShippingRate({
                     </table>
                 </div>
                 <div className="flex mt-auto">
-                    {deliveries.links.map((item, i) => (
+                    {shippingRates.links.map((item, i) => (
                         <Link
                             key={i}
                             href={item.url}
@@ -316,10 +282,6 @@ export default function ShippingRate({
                 setOriginCityId={setOriginCityId}
                 setDestProvinceId={setDestProvinceId}
                 setDestCityId={setDestCityId}
-                drivers={drivers}
-                products={products}
-                clients={clients}
-                shippingRate={shippingRate}
             />
             <DeletePrompt ref={deletePromptRef} />
         </>

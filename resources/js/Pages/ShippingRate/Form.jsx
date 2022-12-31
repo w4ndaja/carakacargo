@@ -25,31 +25,24 @@ function Form(
         originDistrictLoading,
         destCityLoading,
         destDistrictLoading,
-        drivers,
-        products,
-        clients,
-        shippingRate,
         ...props
     },
     ref
 ) {
     const [isOpen, setIsOpen] = useState(false);
     const [data, setData] = useState({});
-    const [title, setTitle] = useState("Tambah Pengiriman");
+    const [title, setTitle] = useState("Tambah Tarif");
     const { errors: _errors } = usePage().props;
     const [errors, setErrors] = useState(_errors);
-    const [shippingRateLoading, setShippingRateLoading] = useState(false);
-    const [price, setPrice] = useState("-");
-
     const formRef = useRef();
     useImperativeHandle(ref, () => ({
         create: () => {
-            setTitle("Tambah Pengiriman");
+            setTitle("Tambah Tarif");
             setData({});
             setIsOpen(true);
         },
         edit: (data) => {
-            setTitle("Edit Pengiriman");
+            setTitle("Edit Tarif");
             setData(data);
             setIsOpen(true);
         },
@@ -62,18 +55,13 @@ function Form(
         errors: formErrors,
     } = useForm({
         _method: "POST",
-        driver_id: "",
-        product_id: "",
-        waybill: "0000000000",
         origin_province_id: "",
         origin_city_id: "",
         origin_district_id: "",
         dest_province_id: "",
         dest_city_id: "",
         dest_district_id: "",
-        service_type: "",
-        status: "warehouse",
-        client_id: "",
+        shipping_channel: "",
         price: 0,
     });
     const submit = (e) => {
@@ -81,9 +69,9 @@ function Form(
         setForm("_method", "POST");
         if (data.id) {
             setForm("_method", "PUT");
-            return Inertia.post(route("deliveries.update", data.id), form);
+            return Inertia.post(route("shipping-rates.update", data.id), form);
         }
-        return Inertia.post(route("deliveries.store"), form, {
+        return Inertia.post(route("shipping-rates.store"), form, {
             onSuccess: () => {
                 setForm("dest_province_id", "");
                 setForm("dest_city_id", "");
@@ -97,32 +85,6 @@ function Form(
     useEffect(() => {
         setErrors({});
     }, [isOpen]);
-    useEffect(() => {
-        console.log({ form });
-        if (
-            form.service_type &&
-            form.dest_district_id &&
-            form.origin_district_id
-        ) {
-            console.log({ form });
-            Inertia.reload({
-                data: {
-                    dest_district_id: form.dest_district_id,
-                    origin_district_id: form.origin_district_id,
-                    shipping_channel: form.service_type,
-                },
-                replace: true,
-                only: ["shippingRate"],
-                onStart() {
-                    setShippingRateLoading(true);
-                },
-                onFinish() {
-                    setShippingRateLoading(false);
-                    setForm("price", shippingRate?.price || "0");
-                },
-            });
-        }
-    }, [form.service_type, form.dest_district_id, form.origin_district_id]);
     return (
         <Transition
             show={isOpen}
@@ -149,86 +111,6 @@ function Form(
                             </button>
                         </Dialog.Title>
                         <form onSubmit={submit} ref={formRef}>
-                            <div className="mb-3 flex flex-col gap-2">
-                                <label htmlFor="input_driver_id">Driver</label>
-                                <select
-                                    value={form.driver_id}
-                                    name="driver_id"
-                                    onChange={(e) => {
-                                        setForm("driver_id", e.target.value);
-                                    }}
-                                    type="text"
-                                    className={`px-4 py-2 rounded shadow disabled:bg-gray-100 ${
-                                        errors.driver_id ? "border-red-500" : ""
-                                    }`}
-                                    id="input_driver_id"
-                                >
-                                    <option value="">Pilih Driver</option>
-                                    {drivers.map((item, i) => (
-                                        <option key={i} value={item.id}>
-                                            {item.user?.name}
-                                        </option>
-                                    ))}
-                                </select>
-                                {errors.driver_id && (
-                                    <span className="text-red-500">
-                                        {errors.driver_id}
-                                    </span>
-                                )}
-                            </div>
-                            <div className="mb-3 flex flex-col gap-2">
-                                <label htmlFor="product_id">Barang</label>
-                                <select
-                                    value={form.product_id}
-                                    name="product_id"
-                                    onChange={(e) => {
-                                        setForm("product_id", e.target.value);
-                                    }}
-                                    type="text"
-                                    className={`px-4 py-2 rounded shadow disabled:bg-gray-100 ${
-                                        errors.product_id
-                                            ? "border-red-500"
-                                            : ""
-                                    }`}
-                                    id="product_id"
-                                >
-                                    <option value="">Pilih Barang</option>
-                                    {products.map((item, i) => (
-                                        <option key={i} value={item.id}>
-                                            {item.code}
-                                        </option>
-                                    ))}
-                                </select>
-                                {errors.product_id && (
-                                    <span className="text-red-500">
-                                        {errors.product_id}
-                                    </span>
-                                )}
-                            </div>
-                            <div className="mb-3 flex flex-col gap-2 border rounded px-3 py-2   ">
-                                <label htmlFor="input_waybill">Resi</label>
-                                <div className="flex flex-1 items-center gap-2">
-                                    <input
-                                        value={form.waybill}
-                                        name="waybill"
-                                        onChange={(e) =>
-                                            setForm("waybill", e.target.value)
-                                        }
-                                        type="text"
-                                        className={`w-full px-4 py-2 rounded shadow ${
-                                            errors.waybill
-                                                ? "border-red-500"
-                                                : ""
-                                        }`}
-                                        id="input_waybill"
-                                    />
-                                </div>
-                                {errors.waybill && (
-                                    <span className="text-red-500">
-                                        {errors.waybill}
-                                    </span>
-                                )}
-                            </div>
                             <div className="grid lg:grid-cols-3 gap-2 rounded border px-3 py-2 mb-2">
                                 <div className="mb-3 flex flex-col gap-2">
                                     <label htmlFor="input_origin_province_id">
@@ -470,116 +352,60 @@ function Form(
                                 </div>
                             </div>
                             <div className="mb-3 flex flex-col gap-2 border rounded px-3 py-2   ">
-                                <label htmlFor="input_service_type">
-                                    Layanan
+                                <label htmlFor="input_shipping_channel">
+                                    Jenis Pengiriman
                                 </label>
                                 <div className="flex flex-1 items-center gap-2">
                                     <select
-                                        value={form.service_type}
-                                        name="service_type"
+                                        value={form.shipping_channel}
+                                        name="shipping_channel"
                                         onChange={(e) =>
                                             setForm(
-                                                "service_type",
+                                                "shipping_channel",
                                                 e.target.value
                                             )
                                         }
                                         className={`w-full px-4 py-2 rounded shadow ${
-                                            errors.service_type
+                                            errors.shipping_channel
                                                 ? "border-red-500"
                                                 : ""
                                         }`}
-                                        id="input_service_type"
+                                        id="input_shipping_channel"
                                     >
-                                        <option value="">Pilih layanan</option>
+                                        <option value="">
+                                            Pilih Jenis Pengiriman
+                                        </option>
                                         <option value="darat">Darat</option>
                                         <option value="laut">Laut</option>
                                         <option value="udara">Udara</option>
                                     </select>
                                 </div>
-                                {errors.service_type && (
+                                {errors.shipping_channel && (
                                     <span className="text-red-500">
-                                        {errors.service_type}
+                                        {errors.shipping_channel}
                                     </span>
                                 )}
                             </div>
                             <div className="mb-3 flex flex-col gap-2 border rounded px-3 py-2   ">
-                                <label htmlFor="input_status">Status</label>
+                                <label htmlFor="input_price">Tarif</label>
                                 <div className="flex flex-1 items-center gap-2">
-                                    <select
-                                        value={form.status}
-                                        name="status"
+                                    <span>Rp. </span>
+                                    <input
+                                        value={form.price}
+                                        name="price"
                                         onChange={(e) =>
-                                            setForm("status", e.target.value)
+                                            setForm("price", e.target.value)
                                         }
+                                        type="number"
                                         className={`w-full px-4 py-2 rounded shadow ${
-                                            errors.status
-                                                ? "border-red-500"
-                                                : ""
+                                            errors.price ? "border-red-500" : ""
                                         }`}
-                                        id="input_status"
-                                    >
-                                        <option value="warehouse">
-                                            Warehouse
-                                        </option>
-                                        <option value="on_delivery">
-                                            On Delivery
-                                        </option>
-                                        <option value="received">
-                                            Diterima
-                                        </option>
-                                    </select>
+                                        id="input_price"
+                                    />
                                 </div>
-                                {errors.status && (
+                                {errors.price && (
                                     <span className="text-red-500">
-                                        {errors.status}
-                                    </span>
-                                )}
-                            </div>
-                            <div className="mb-3 flex flex-col gap-2 border rounded px-3 py-2   ">
-                                <label htmlFor="input_price">Pengiriman</label>
-                                <div className="flex flex-1 items-center gap-2">
-                                    <div className="font-semibold">Rp. </div>
-                                    {!shippingRateLoading &&
-                                    shippingRate?._price ? (
-                                        <div className="px-3 py-2 rounded-lg bg-green-100 text-green-600">
-                                            {shippingRate?._price}
-                                        </div>
-                                    ) : (
-                                        <>
-                                            <div className="h-[40px] w-[120px] bg-gray-200 animate-pulse rounded-lg"></div>
-                                        </>
-                                    )}
-                                </div>
-                            </div>
-                            <div className="mb-3 flex flex-col gap-2 border rounded px-3 py-2   ">
-                                <label htmlFor="input_client_id">
-                                    Kustomer
-                                </label>
-                                <div className="flex flex-1 items-center gap-2">
-                                    <select
-                                        value={form.client_id}
-                                        name="client_id"
-                                        onChange={(e) =>
-                                            setForm("client_id", e.target.value)
-                                        }
-                                        className={`w-full px-4 py-2 rounded shadow ${
-                                            errors.client_id
-                                                ? "border-red-500"
-                                                : ""
-                                        }`}
-                                        id="input_client_id"
-                                    >
-                                        <option value="">Pilih Client</option>
-                                        {clients.map((item, i) => (
-                                            <option value={item.id}>
-                                                {item.code} - {item.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                                {errors.client_id && (
-                                    <span className="text-red-500">
-                                        {errors.client_id}
+                                        {errors.price}
                                     </span>
                                 )}
                             </div>

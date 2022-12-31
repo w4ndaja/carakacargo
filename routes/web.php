@@ -27,10 +27,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController');
     Route::resource('clients', 'ClientController');
-    Route::resource('deliveries', 'DeliveryController');
     Route::resource('users', 'UserController');
     Route::resource('vehicles', 'VehicleController');
     Route::resource('drivers', 'DriverController');
+    Route::resource('shipping-rates', 'ShippingRateController');
+    Route::resource('deliveries', 'DeliveryController');
     Route::post('provinces/{province}/cities', 'GeoController@citiesByProvince')->name('citiesByProvince');
     Route::post('cities/{city}/districs', 'GeoController@districtsByCity')->name('districtsByCity');
 });

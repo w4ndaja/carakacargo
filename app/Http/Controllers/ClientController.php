@@ -17,8 +17,8 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Master/Client/Index', [
-            'clients' => function() use ($request){
-                return Client::search($request->search, 'name', 'phone')->paginate()->withQueryString();
+            'clients' => function () use ($request) {
+                return Client::with('province', 'city', 'district')->search($request->search, 'name', 'phone')->paginate()->withQueryString();
             },
             'provinces' => function () {
                 return Province::all();
@@ -36,12 +36,15 @@ class ClientController extends Controller
     {
         $form = $request->validate([
             'name' => 'required|string',
+            'pic_name' => 'required|string',
+            'email' => 'required|string',
             'phone' => 'required|string',
             'province_id' => 'required|integer',
             'city_id' => 'required|integer',
             'district_id' => 'required|integer',
             'address' => 'nullable|string',
         ]);
+        $form['code'] = 'CUST' . str_pad((optional(Client::latest()->first())->id || 0) + 1, 6, '0', STR_PAD_LEFT);
         Client::create($form);
         return back()->with('success', 'Pelanggan berhasil ditambah!');
     }

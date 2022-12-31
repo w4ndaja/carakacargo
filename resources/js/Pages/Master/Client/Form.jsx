@@ -6,7 +6,7 @@ import { usePage } from '@inertiajs/inertia-react';
 function Form(props, ref) {
     const [isOpen, setIsOpen] = useState(false);
     const [data, setData] = useState({});
-    const [title, setTitle] = useState('Tambah Barang');
+    const [title, setTitle] = useState('Tambah Pelanggan');
     const { errors: _errors, provinces, flash } = usePage().props;
     const [errors, setErrors] = useState(_errors);
     const [cities, setCities] = useState([]);
@@ -15,12 +15,12 @@ function Form(props, ref) {
 
     useImperativeHandle(ref, () => ({
         create: () => {
-            setTitle('Tambah Barang');
+            setTitle('Tambah Pelanggan');
             setData({});
             setIsOpen(true);
         },
         edit: data => {
-            setTitle('Edit Barang');
+            setTitle('Edit Pelanggan');
             setData(data);
             setIsOpen(true);
         }
@@ -29,9 +29,9 @@ function Form(props, ref) {
         e.preventDefault();
         let form = new FormData(e.target);
         if (data.id) {
-            return Inertia.visit(route('products.update', data.id), { method: 'put', data: form });
+            return Inertia.visit(route('clients.update', data.id), { method: 'put', data: form });
         }
-        return Inertia.post(route('products.store'), form, {
+        return Inertia.post(route('clients.store'), form, {
             onSuccess: () => formRef.current.reset()
         });
     };
@@ -43,7 +43,7 @@ function Form(props, ref) {
                 console.log(`Cities retrieved by prov id:${province} =>`, data);
                 setCities(data.props.flash.data || []);
             },
-            onError : () => setCities([])
+            onError: () => setCities([])
         });
     };
 
@@ -54,7 +54,7 @@ function Form(props, ref) {
                 console.log(`Districts retrieved by city id:${city} =>`, data);
                 setDistricts(data.props.flash.data || []);
             },
-            onError : () => setDistricts([])
+            onError: () => setDistricts([])
         });
     };
 
@@ -82,6 +82,16 @@ function Form(props, ref) {
                             <label htmlFor="input_name">Nama</label>
                             <input name="name" defaultValue={ data.name } type="text" className={ `px-4 py-2 rounded shadow ${errors.name ? 'border-red-500' : ''}` } id="input_name" />
                             { errors.name && (<span className="text-red-500">{ errors.name }</span>) }
+                        </div>
+                        <div className="mb-3 flex flex-col gap-2">
+                            <label htmlFor="input_pic_name">Nama PIC</label>
+                            <input name="pic_name" defaultValue={ data.pic_name } type="text" className={ `px-4 py-2 rounded shadow ${errors.pic_name ? 'border-red-500' : ''}` } id="input_pic_name" />
+                            { errors.pic_name && (<span className="text-red-500">{ errors.pic_name }</span>) }
+                        </div>
+                        <div className="mb-3 flex flex-col gap-2">
+                            <label htmlFor="input_email">Email</label>
+                            <input name="email" defaultValue={ data.email } type="email" className={ `px-4 py-2 rounded shadow ${errors.email ? 'border-red-500' : ''}` } id="input_email" />
+                            { errors.email && (<span className="text-red-500">{ errors.email }</span>) }
                         </div>
                         <div className="mb-3 flex flex-col gap-2">
                             <label htmlFor="input_phone">HP</label>

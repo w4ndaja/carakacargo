@@ -73,7 +73,7 @@ export default function Product({ clients }) {
                   <th className='border-r last:border-r-0 border-b py-2'>{item.phone}</th>
                   <th className='border-r last:border-r-0 border-b py-2'>{item.province.name}</th>
                   <th className='border-r last:border-r-0 border-b py-2'>{item.city.name}</th>
-                  <th className='border-r last:border-r-0 border-b py-2'>{item.distric.name}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.district.name}</th>
                   <th className='border-r last:border-r-0 border-b py-2'>
                     <button role="button" type="button" onClick={e => edit(e, item)}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">

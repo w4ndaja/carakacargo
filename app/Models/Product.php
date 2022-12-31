@@ -15,4 +15,9 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function delivery()
+    {
+        return $this->hasOne(Delivery::class, 'product_id');
+    }
 }
