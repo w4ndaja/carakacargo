@@ -30,9 +30,11 @@ export const PrintBarcodeModal = forwardRef((props, ref) => {
                     window.document.head.innerHTML;
                 printWindow.document.body.innerHTML =
                     printArea.current.outerHTML;
-                printWindow.print();
-                printWindow.close();
-                setModalIsShow(false);
+                setTimeout(() => {
+                    printWindow.print();
+                    printWindow.close();
+                    setModalIsShow(false);
+                }, 500);
             });
         }
     }, [resi, modalIsShow]);
@@ -40,7 +42,7 @@ export const PrintBarcodeModal = forwardRef((props, ref) => {
         print: (resi) => {
             setResi(resi);
             setModalIsShow(true);
-            renderAndPrint();
+            // renderAndPrint();
         },
     }));
     return (
