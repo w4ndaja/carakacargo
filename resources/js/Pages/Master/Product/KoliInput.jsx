@@ -10,7 +10,7 @@ export const KoliInput = ({
     const _koli = [];
     useEffect(() => {
         setKoliInputs(
-            data.kolis.map((item) => ({
+            (data?.kolis || []).map((item) => ({
                 length: item.length,
                 width: item.width,
                 height: item.height,
