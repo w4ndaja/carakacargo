@@ -25,6 +25,7 @@ function Form(
         originDistrictLoading,
         destCityLoading,
         destDistrictLoading,
+        categories,
         ...props
     },
     ref
@@ -375,9 +376,9 @@ function Form(
                                         <option value="">
                                             Pilih Jenis Pengiriman
                                         </option>
-                                        <option value="darat">Darat</option>
-                                        <option value="laut">Laut</option>
-                                        <option value="udara">Udara</option>
+                                        {categories.map((item, i) => (
+                                            <option key={i} value={item.name}>{item.name} - {item.description}</option>
+                                        ))}
                                     </select>
                                 </div>
                                 {errors.shipping_channel && (

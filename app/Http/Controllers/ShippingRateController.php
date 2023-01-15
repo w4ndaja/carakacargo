@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 use App\Models\ShippingRate;
@@ -57,7 +58,10 @@ class ShippingRateController extends Controller
             }
             return [];
         };
-        return Inertia::render('Master/ShippingRate/Index', compact('shippingRates', 'provinces', 'originCities', 'originDistricts', 'destCities', 'destDistricts'));
+        $categories = function(){
+            return Category::all();
+        };
+        return Inertia::render('Master/ShippingRate/Index', compact('shippingRates', 'provinces', 'originCities', 'originDistricts', 'destCities', 'destDistricts', 'categories'));
     }
 
     /**

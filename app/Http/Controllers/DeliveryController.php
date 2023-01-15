@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Client;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
@@ -84,7 +85,10 @@ class DeliveryController extends Controller
             }
             return $shippingRate;
         };
-        return Inertia::render('Delivery/Index', compact('deliveries', 'provinces', 'originCities', 'originDistricts', 'destCities', 'destDistricts', 'drivers', 'products', 'clients', 'shippingRate'));
+        $categories = function(){
+            return Category::all();
+        };
+        return Inertia::render('Delivery/Index', compact('deliveries', 'provinces', 'originCities', 'originDistricts', 'destCities', 'destDistricts', 'drivers', 'products', 'clients', 'shippingRate', 'categories'));
     }
 
     /**

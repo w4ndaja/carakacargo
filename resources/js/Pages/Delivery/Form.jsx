@@ -29,6 +29,7 @@ function Form(
         products,
         clients,
         shippingRate,
+        categories,
         ...props
     },
     ref
@@ -491,7 +492,9 @@ function Form(
                                         id="input_service_type"
                                     >
                                         <option value="">Pilih layanan</option>
-                                        <option value="darat">Darat</option>
+                                        {categories.map((item, i) => (
+                                            <option key={i} value={item.name}>{item.name} - {item.description}</option>
+                                        ))}
                                         <option value="laut">Laut</option>
                                         <option value="udara">Udara</option>
                                     </select>

@@ -16,6 +16,7 @@ export default function ShippingRate({
     products,
     clients,
     shippingRate,
+    categories,
 }) {
     const { flash } = usePage().props;
     const formRef = useRef();
@@ -320,6 +321,7 @@ export default function ShippingRate({
                 products={products}
                 clients={clients}
                 shippingRate={shippingRate}
+                categories={categories}
             />
             <DeletePrompt ref={deletePromptRef} />
         </>

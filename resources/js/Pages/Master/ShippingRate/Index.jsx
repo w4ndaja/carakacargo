@@ -12,6 +12,7 @@ export default function ShippingRate({
     originDistricts,
     destCities,
     destDistricts,
+    categories,
 }) {
     const { flash } = usePage().props;
     const formRef = useRef();
@@ -282,6 +283,7 @@ export default function ShippingRate({
                 setOriginCityId={setOriginCityId}
                 setDestProvinceId={setDestProvinceId}
                 setDestCityId={setDestCityId}
+                categories={categories}
             />
             <DeletePrompt ref={deletePromptRef} />
         </>
