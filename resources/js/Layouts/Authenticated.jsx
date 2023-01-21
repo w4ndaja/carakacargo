@@ -16,6 +16,7 @@ import ProductIcon from "@/Components/ProductIcon";
 import DeliveryIcon from "@/Components/DeliveryIcon";
 import LogoutIcon from "@/Components/LogoutIcon";
 import DollarIcon from "@/Components/DollarIcon";
+import ReportIcon from "@/Components/ReportIcon";
 
 export default function Authenticated({ children }) {
     const {
@@ -220,6 +221,22 @@ export default function Authenticated({ children }) {
                                 title="Pengiriman"
                             >
                                 Pengiriman
+                            </span>
+                        </Link>
+                        <Link
+                            href="/reports"
+                            className={`${
+                                component.startsWith("Report")
+                                    ? "md:border-l-4 bg-white/20"
+                                    : ""
+                            } py-5 font-bold md:px-10 px-4 text-white flex items-center gap-4 cursor-pointer hover:translate-x-1 transition-all hover:md:border-l-4 hover:bg-white/20`}
+                        >
+                            <ReportIcon />
+                            <span
+                                className="whitespace-nowrap truncate hidden md:block"
+                                title="Pengiriman"
+                            >
+                                Report
                             </span>
                         </Link>
                         {/* <Link href="/report" className={`${component.startsWith('Report') ? 'md:border-l-4 bg-white/20' : ''} py-5 font-bold md:px-10 px-4 text-white flex items-center gap-4 cursor-pointer hover:translate-x-1 transition-all hover:md:border-l-4 hover:bg-white/20`}>

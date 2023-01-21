@@ -99,13 +99,11 @@ function Form(
         setErrors({});
     }, [isOpen]);
     useEffect(() => {
-        console.log({ form });
         if (
             form.service_type &&
             form.dest_district_id &&
             form.origin_district_id
         ) {
-            console.log({ form });
             Inertia.reload({
                 data: {
                     dest_district_id: form.dest_district_id,
@@ -183,7 +181,15 @@ function Form(
                                     value={form.product_id}
                                     name="product_id"
                                     onChange={(e) => {
-                                        setForm("product_id", e.target.value);
+                                        const product = products.find(
+                                            (item) => item?.id == e.target.value
+                                        );
+                                        setForm({
+                                            ...form,
+                                            product_id: e.target.value,
+                                            client_id: product?.client_id,
+                                            waybill: product?.resi,
+                                        });
                                     }}
                                     type="text"
                                     className={`px-4 py-2 rounded shadow disabled:bg-gray-100 ${
@@ -212,9 +218,6 @@ function Form(
                                     <input
                                         value={form.waybill}
                                         name="waybill"
-                                        onChange={(e) =>
-                                            setForm("waybill", e.target.value)
-                                        }
                                         type="text"
                                         className={`w-full px-4 py-2 rounded shadow ${
                                             errors.waybill
@@ -222,6 +225,7 @@ function Form(
                                                 : ""
                                         }`}
                                         id="input_waybill"
+                                        readOnly
                                     />
                                 </div>
                                 {errors.waybill && (
@@ -493,10 +497,10 @@ function Form(
                                     >
                                         <option value="">Pilih layanan</option>
                                         {categories.map((item, i) => (
-                                            <option key={i} value={item.name}>{item.name} - {item.description}</option>
+                                            <option key={i} value={item.name}>
+                                                {item.name} - {item.description}
+                                            </option>
                                         ))}
-                                        <option value="laut">Laut</option>
-                                        <option value="udara">Udara</option>
                                     </select>
                                 </div>
                                 {errors.service_type && (
@@ -556,15 +560,13 @@ function Form(
                             </div>
                             <div className="mb-3 flex flex-col gap-2 border rounded px-3 py-2   ">
                                 <label htmlFor="input_client_id">
-                                    Kustomer
+                                    Customer
                                 </label>
                                 <div className="flex flex-1 items-center gap-2">
                                     <select
                                         value={form.client_id}
                                         name="client_id"
-                                        onChange={(e) =>
-                                            setForm("client_id", e.target.value)
-                                        }
+                                        readOnly
                                         className={`w-full px-4 py-2 rounded shadow ${
                                             errors.client_id
                                                 ? "border-red-500"
@@ -572,10 +574,9 @@ function Form(
                                         }`}
                                         id="input_client_id"
                                     >
-                                        <option value="">Pilih Client</option>
                                         {clients.map((item, i) => (
-                                            <option value={item.id}>
-                                                {item.code} - {item.name}
+                                            <option value={item.id} key={i}>
+                                                {item.name}
                                             </option>
                                         ))}
                                     </select>

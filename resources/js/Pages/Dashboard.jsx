@@ -12,23 +12,23 @@ export default function Dashboard(props) {
                 </div>
                 <div className="grid md:grid-cols-4 grid-flow-row auto-rows-auto gap-10 mt-10">
                     <div className="group border rounded-xl p-6 flex flex-col gap-3 items-center justify-center cursor-pointer hover:border-blue-600 hover:text-blue-600 transition-all hover:-translate-y-1 hover:shadow-lg">
-                        <div className="group-hover:text-blue-600 text-gray-400 text-lg font-semibold">Kategori</div>
-                        <div className="text-4xl font-bold">6</div>
+                        <div className="group-hover:text-blue-600 text-gray-400 text-lg font-semibold">Gudang</div>
+                        <div className="text-4xl font-bold">{props.warehouses}</div>
                     </div>
                     <div className="group border rounded-xl p-6 flex flex-col gap-3 items-center justify-center cursor-pointer hover:border-blue-600 hover:text-blue-600 transition-all hover:-translate-y-1 hover:shadow-lg">
-                        <div className="group-hover:text-blue-600 text-gray-400 text-lg font-semibold">Barang</div>
-                        <div className="text-4xl font-bold">16</div>
+                        <div className="group-hover:text-blue-600 text-gray-400 text-lg font-semibold">Pengiriman</div>
+                        <div className="text-4xl font-bold">{props.deliveries}</div>
                     </div>
                     <div className="group border rounded-xl p-6 flex flex-col gap-3 items-center justify-center cursor-pointer hover:border-blue-600 hover:text-blue-600 transition-all hover:-translate-y-1 hover:shadow-lg">
                         <div className="group-hover:text-blue-600 text-gray-400 text-lg font-semibold">Kurir</div>
-                        <div className="text-4xl font-bold">43</div>
+                        <div className="text-4xl font-bold">{props.couriers}</div>
                     </div>
                     <div className="group border rounded-xl p-6 flex flex-col gap-3 items-center justify-center cursor-pointer hover:border-blue-600 hover:text-blue-600 transition-all hover:-translate-y-1 hover:shadow-lg">
                         <div className="group-hover:text-blue-600 text-gray-400 text-lg font-semibold">Pelanggan</div>
-                        <div className="text-4xl font-bold">64</div>
+                        <div className="text-4xl font-bold">{props.clients}</div>
                     </div>
                 </div>
-                <div className="border rounded-xl flex mt-6 flex-wrap">
+                {/* <div className="border rounded-xl flex mt-6 flex-wrap">
                     <div className="flex flex-col flex-1 py-10 px-9">
                         <div className="text-xl font-bold">Statistik Pengiriman</div>
                         <div className="flex justify-between flex-wrap mt-2">
@@ -67,7 +67,7 @@ export default function Dashboard(props) {
                             <div className="text-2xl font-semibold">94%</div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     );

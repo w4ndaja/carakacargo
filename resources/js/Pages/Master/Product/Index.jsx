@@ -6,7 +6,7 @@ import React, { useCallback, useRef, useState } from 'react'
 import DeletePrompt from './DeletePrompt'
 import Form from './Form'
 
-export default function Product({ products }) {
+export default function Product({ products, clients, newResi }) {
   const { flash } = usePage().props
   const formRef = useRef()
   const deletePromptRef = useRef()
@@ -59,26 +59,22 @@ export default function Product({ products }) {
           <table className='w-full'>
             <thead>
               <tr>
+                <th className='border-r last:border-r-0 border-b py-2'>Customer</th>
+                <th className='border-r last:border-r-0 border-b py-2'>Resi</th>
                 <th className='border-r last:border-r-0 border-b py-2'>Kode</th>
                 <th className='border-r last:border-r-0 border-b py-2'>Label</th>
                 <th className='border-r last:border-r-0 border-b py-2'>Jumlah Koli</th>
-                <th className='border-r last:border-r-0 border-b py-2'>Panjang</th>
-                <th className='border-r last:border-r-0 border-b py-2'>Lebar</th>
-                <th className='border-r last:border-r-0 border-b py-2'>Tinggi</th>
-                <th className='border-r last:border-r-0 border-b py-2'>Berat</th>
                 <th className='border-r last:border-r-0 border-b py-2'>#</th>
               </tr>
             </thead>
             <tbody>
               {products.data.map((item, i) => (
                 <tr key={i}>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.client?.name}</th>
+                  <th className='border-r last:border-r-0 border-b py-2'>{item.resi}</th>
                   <th className='border-r last:border-r-0 border-b py-2'>{item.code}</th>
                   <th className='border-r last:border-r-0 border-b py-2'>{item.label}</th>
                   <th className='border-r last:border-r-0 border-b py-2'>{item.koli}</th>
-                  <th className='border-r last:border-r-0 border-b py-2'>{item.length}</th>
-                  <th className='border-r last:border-r-0 border-b py-2'>{item.width}</th>
-                  <th className='border-r last:border-r-0 border-b py-2'>{item.height}</th>
-                  <th className='border-r last:border-r-0 border-b py-2'>{item.weight}</th>
                   <th className='border-r last:border-r-0 border-b py-2'>
                     <div className="flex w-full justify-center gap-3">
                       <button role="button" type="button" onClick={e => edit(e, item)}>
@@ -111,7 +107,7 @@ export default function Product({ products }) {
           {products.links.map(item => <Link href={item.url} className="bg-indigo-600 text-white px-4 py-2 first:rounded-l-xl last:rounded-r-xl hover:bg-indigo-500" dangerouslySetInnerHTML={{ __html: item.label }}></Link>)}
         </div>
       </div>
-      <Form ref={formRef} />
+      <Form ref={formRef} clients={clients} newResi={newResi} />
       <DeletePrompt ref={deletePromptRef} />
     </>
   )

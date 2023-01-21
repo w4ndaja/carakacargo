@@ -40,7 +40,6 @@ function Form(props, ref) {
         const province = e.target.value;
         Inertia.post(route('citiesByProvince', province), { only: [] }, {
             onSuccess: data => {
-                console.log(`Cities retrieved by prov id:${province} =>`, data);
                 setCities(data.props.flash.data || []);
             },
             onError: () => setCities([])
@@ -51,7 +50,6 @@ function Form(props, ref) {
         const city = e.target.value;
         Inertia.post(route('districtsByCity', city), { only: [] }, {
             onSuccess: data => {
-                console.log(`Districts retrieved by city id:${city} =>`, data);
                 setDistricts(data.props.flash.data || []);
             },
             onError: () => setDistricts([])

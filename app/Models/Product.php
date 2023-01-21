@@ -20,4 +20,14 @@ class Product extends Model
     {
         return $this->hasOne(Delivery::class, 'product_id');
     }
+
+    public function kolis()
+    {
+        return $this->hasMany(ProductKoli::class, 'product_id');
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
 }

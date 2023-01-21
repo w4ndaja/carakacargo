@@ -31,7 +31,6 @@ function Form(props, ref) {
         }
         return Inertia.post(route('users.store'), form, {
             onSuccess: success => {
-                console.log('User created!', success);
                 formRef.current.reset()
             }
         });
