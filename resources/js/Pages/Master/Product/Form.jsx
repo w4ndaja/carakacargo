@@ -17,6 +17,7 @@ function Form({ clients, newResi, ...props }, ref) {
     const { errors: _errors, categories } = usePage().props;
     const [errors, setErrors] = useState(_errors);
     const [koli, setKoli] = useState(1);
+    const [koliInputs, setKoliInputs] = useState([]);
 
     useImperativeHandle(ref, () => ({
         create: () => {
@@ -175,10 +176,34 @@ function Form({ clients, newResi, ...props }, ref) {
                             </div>
                             <div className="rounded-xl border-t border-r border-l mb-3">
                                 <KoliInput
+                                    koliInputs={koliInputs}
+                                    setKoliInputs={setKoliInputs}
                                     quantity={koli}
                                     data={data}
                                     errors={errors}
                                 />
+                            </div>
+                            <div className="mb-3 flex flex-col gap-2">
+                                <label htmlFor="input_weight_total">
+                                    Total Berat
+                                </label>
+                                <input
+                                    name="weight_total"
+                                    type="number"
+                                    className={`px-4 py-2 rounded shadow read-only:bg-gray-200 text-gray-700 ${
+                                        errors.weight_total
+                                            ? "border-red-500"
+                                            : ""
+                                    }`}
+                                    id="input_weight_total"
+                                    value={koliInputs.reduce((carry, item) => carry + parseInt(item?.weight || 0), 0)}
+                                    readOnly
+                                />
+                                {errors.weight_total && (
+                                    <span className="text-red-500">
+                                        {errors.weight_total}
+                                    </span>
+                                )}
                             </div>
                             <div className="mb-3 flex flex-col gap-2">
                                 <label htmlFor="input_category_id">
