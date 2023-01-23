@@ -6,7 +6,7 @@ export default function RowVehicle({item, edit, destroy}) {
         return moment(item.license_valid_until).isBefore(moment()) && moment(item.keur_valid_until).isBefore(moment())
     }, [item.license_valid_until, item.keur_valid_until])
     const toBeExpired = useMemo(() => {
-        return moment(item.license_valid_until).isSameOrBefore(moment().add(1, 'month')) && moment(item.keur_valid_until).isSameOrBefore(moment().add(1, 'month'))
+        return moment(item.license_valid_until).isSameOrBefore(moment().add(1, 'month')) && moment(item.keur_valid_until).isSameOrBefore(moment().add(1, 'month')) && !expired
     }, [item.license_valid_until, item.keur_valid_until])
     return (
         <tr className={`${expired && 'text-red-100 bg-red-600'} ${toBeExpired && 'text-orange-100 bg-orange-400'}`}>
