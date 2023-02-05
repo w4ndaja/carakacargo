@@ -38,7 +38,7 @@ export default function Login({ status, canResetPassword }) {
                 <ApplicationLogo />
             </div>
             <div className="text-2xl font-semibold text-center mt-9">Masuk</div>
-            <div className="text-gray-400 text-center">Silahkan masukan email dan password</div>
+            <div className="text-gray-400 text-center">Silahkan masukan email dasdsdn password</div>
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 

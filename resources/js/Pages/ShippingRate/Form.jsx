@@ -44,6 +44,7 @@ function Form(
         },
         edit: (data) => {
             setTitle("Edit Tarif");
+            console.log({data})
             setData(data);
             setIsOpen(true);
         },

@@ -16,7 +16,7 @@ function DeletePrompt(props, ref) {
     const submit = e => {
         e.preventDefault();
         if (data.id) {
-            return Inertia.visit(route('categories.destroy', data.id), { method: 'delete' });
+            return Inertia.visit(route('deliveries.destroy', data.id), { method: 'delete' });
         }
     };
     return <Transition

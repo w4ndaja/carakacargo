@@ -41,11 +41,17 @@ function Form(
             setTitle("Tambah Tarif");
             setData({});
             setIsOpen(true);
+            setForm("_method", "POST");
         },
         edit: (data) => {
+            setIsOpen(true);
             setTitle("Edit Tarif");
             setData(data);
-            setIsOpen(true);
+            setForm({ ...form, ...data, _method: "PUT" });
+            setOriginProvinceId(data.origin_province_id);
+            setOriginCityId(data.origin_city_id);
+            setDestProvinceId(data.dest_province_id);
+            setDestCityId(data.dest_city_id);
         },
     }));
     const {
@@ -67,9 +73,7 @@ function Form(
     });
     const submit = (e) => {
         e.preventDefault();
-        setForm("_method", "POST");
         if (data.id) {
-            setForm("_method", "PUT");
             return Inertia.post(route("shipping-rates.update", data.id), form);
         }
         return Inertia.post(route("shipping-rates.store"), form, {
@@ -377,7 +381,9 @@ function Form(
                                             Pilih Jenis Pengiriman
                                         </option>
                                         {categories.map((item, i) => (
-                                            <option key={i} value={item.name}>{item.name} - {item.description}</option>
+                                            <option key={i} value={item.name}>
+                                                {item.name} - {item.description}
+                                            </option>
                                         ))}
                                     </select>
                                 </div>

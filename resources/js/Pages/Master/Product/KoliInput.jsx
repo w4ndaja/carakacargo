@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export const KoliInput = ({
     quantity,
     data,
@@ -6,14 +8,27 @@ export const KoliInput = ({
     setKoliInputs,
 }) => {
     const _koli = [];
+    useEffect(() => {
+        setKoliInputs(
+            data.kolis.map((item) => ({
+                length: item.length,
+                width: item.width,
+                height: item.height,
+                weight: item.weight,
+            }))
+        );
+    }, [data]);
     for (let i = 0; i < quantity; i++) {
-        if(koliInputs.length < i+1){
-            setKoliInputs(koliInputs => [...koliInputs, {
-                length : 0,
-                width : 0,
-                height : 0,
-                weight : 0
-            }])
+        if (koliInputs.length < i + 1) {
+            setKoliInputs((koliInputs) => [
+                ...koliInputs,
+                {
+                    length: 0,
+                    width: 0,
+                    height: 0,
+                    weight: 0,
+                },
+            ]);
         }
         _koli.push(
             <div className="flex gap-2 flex-nowrap border-b rounded-xl p-3">

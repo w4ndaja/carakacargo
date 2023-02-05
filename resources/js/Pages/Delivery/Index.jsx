@@ -30,11 +30,21 @@ export default function ShippingRate({
     const [destCityLoading, setDestCityLoading] = useState(false);
     const [destDistrictLoading, setDestDistrictLoading] = useState(false);
     useEffect(() => {
-        if (originProvinceId) {
+        if (originProvinceId || originCityId || destProvinceId || destCityId) {
             Inertia.reload({
-                data: { origin_province_id: originProvinceId },
+                data: {
+                    origin_province_id: originProvinceId,
+                    origin_city_id: originCityId,
+                    dest_province_id: destProvinceId,
+                    dest_city_id: destCityId,
+                },
                 replace: true,
-                only: ["originCities"],
+                only: [
+                    "originCities",
+                    "originDistricts",
+                    "destCities",
+                    "destDistricts",
+                ],
                 onStart() {
                     setOriginCityLoading(true);
                 },
@@ -43,58 +53,7 @@ export default function ShippingRate({
                 },
             });
         }
-    }, [originProvinceId]);
-    useEffect(() => {
-        if (originCityId) {
-            Inertia.reload({
-                data: {
-                    origin_province_id: originProvinceId,
-                    origin_city_id: originCityId,
-                },
-                replace: true,
-                only: ["originDistricts"],
-                onStart() {
-                    setOriginDistrictLoading(true);
-                },
-                onFinish() {
-                    setOriginDistrictLoading(false);
-                },
-            });
-        }
-    }, [originCityId]);
-    useEffect(() => {
-        if (destProvinceId) {
-            Inertia.reload({
-                data: { dest_province_id: destProvinceId },
-                replace: true,
-                only: ["destCities"],
-                onStart() {
-                    setDestCityLoading(true);
-                },
-                onFinish() {
-                    setDestCityLoading(false);
-                },
-            });
-        }
-    }, [destProvinceId]);
-    useEffect(() => {
-        if (destCityId) {
-            Inertia.reload({
-                data: {
-                    dest_province_id: destProvinceId,
-                    dest_city_id: destCityId,
-                },
-                replace: true,
-                only: ["destDistricts"],
-                onStart() {
-                    setDestDistrictLoading(true);
-                },
-                onFinish() {
-                    setDestDistrictLoading(false);
-                },
-            });
-        }
-    }, [destCityId]);
+    }, [originProvinceId, originCityId, destProvinceId, destCityId]);
 
     const create = (e) => {
         e.preventDefault();

@@ -81,11 +81,13 @@ class DeliveryController extends Controller
                 'shipping_channel' => $request->shipping_channel,
             ])->first();
             if ($shippingRate) {
+                $shippingRate->price = Product::findOrNew($request->product_id)->volume_total || 0;
+                // $shippingRate->price = $shippingRate->price * floor(Product::find($request->product_id)->volume_total / 1000);
                 $shippingRate->_price = number_format($shippingRate->price, 0, ',', '.');
             }
             return $shippingRate;
         };
-        $categories = function(){
+        $categories = function () {
             return Category::all();
         };
         return Inertia::render('Delivery/Index', compact('deliveries', 'provinces', 'originCities', 'originDistricts', 'destCities', 'destDistricts', 'drivers', 'products', 'clients', 'shippingRate', 'categories'));
@@ -99,7 +101,8 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
-        $form = $request->validate(["driver_id" => "required|integer",
+        $form = $request->validate([
+            "driver_id" => "required|integer",
             "product_id" => "required|integer",
             "waybill" => "required|string",
             "origin_province_id" => "required|integer",
@@ -124,9 +127,10 @@ class DeliveryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Delivery $category)
+    public function update(Request $request, Delivery $delivery)
     {
-        $form = $request->validate(["driver_id" => "required|integer",
+        $form = $request->validate([
+            "driver_id" => "required|integer",
             "product_id" => "required|integer",
             "waybill" => "required|string",
             "origin_province_id" => "required|integer",
@@ -140,7 +144,7 @@ class DeliveryController extends Controller
             "price" => "required|integer",
             "client_id" => "required|integer",
         ]);
-        $category->update($form);
+        $delivery->update($form);
         return back()->with('success', 'Pengiriman berhasil diperbaharui!');
     }
 
@@ -150,9 +154,9 @@ class DeliveryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Delivery $category)
+    public function destroy(Delivery $delivery)
     {
-        $category->delete();
+        $delivery->delete();
         return back()->with('success', 'Pengiriman berhasil dihapus!');
     }
 }

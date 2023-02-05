@@ -26,71 +26,36 @@ export default function ShippingRate({
     const [destCityLoading, setDestCityLoading] = useState(false);
     const [destDistrictLoading, setDestDistrictLoading] = useState(false);
     useEffect(() => {
-        if (originProvinceId) {
-            Inertia.reload({
-                data: { origin_province_id: originProvinceId },
-                replace: true,
-                only: ["originCities"],
-                onStart() {
-                    setOriginCityLoading(true);
-                },
-                onFinish() {
-                    setOriginCityLoading(false);
-                },
-            });
-        }
-    }, [originProvinceId]);
-    useEffect(() => {
-        if (originCityId) {
+        if (originProvinceId || originCityId || destProvinceId || destCityId) {
             Inertia.reload({
                 data: {
                     origin_province_id: originProvinceId,
                     origin_city_id: originCityId,
-                },
-                replace: true,
-                only: ["originDistricts"],
-                onStart() {
-                    setOriginDistrictLoading(true);
-                },
-                onFinish() {
-                    setOriginDistrictLoading(false);
-                },
-            });
-        }
-    }, [originCityId]);
-    useEffect(() => {
-        if (destProvinceId) {
-            Inertia.reload({
-                data: { dest_province_id: destProvinceId },
-                replace: true,
-                only: ["destCities"],
-                onStart() {
-                    setDestCityLoading(true);
-                },
-                onFinish() {
-                    setDestCityLoading(false);
-                },
-            });
-        }
-    }, [destProvinceId]);
-    useEffect(() => {
-        if (destCityId) {
-            Inertia.reload({
-                data: {
                     dest_province_id: destProvinceId,
                     dest_city_id: destCityId,
                 },
                 replace: true,
-                only: ["destDistricts"],
+                only: [
+                    "originCities",
+                    "destCities",
+                    "originDistricts",
+                    "destDistricts",
+                ],
                 onStart() {
+                    setOriginCityLoading(true);
+                    setDestCityLoading(true);
+                    setOriginDistrictLoading(true);
                     setDestDistrictLoading(true);
                 },
                 onFinish() {
+                    setOriginCityLoading(false);
+                    setDestCityLoading(false);
+                    setOriginDistrictLoading(false);
                     setDestDistrictLoading(false);
                 },
             });
         }
-    }, [destCityId]);
+    }, [originProvinceId, originCityId, destProvinceId, destCityId]);
 
     const create = (e) => {
         e.preventDefault();
@@ -180,10 +145,10 @@ export default function ShippingRate({
                                         {item.dest_district?.name}
                                     </td>
                                     <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                        {item.shipping_channel}
+                                        {item.shipping_channel_formatted}
                                     </td>
                                     <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs text-right">
-                                        {item.price}
+                                        {item.price_formatted}
                                     </td>
                                     <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
                                         <div className="flex gap-3 w-100 justify-center">

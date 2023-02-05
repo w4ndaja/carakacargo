@@ -36,6 +36,7 @@ function Form({ clients, newResi, ...props }, ref) {
         edit: (data) => {
             setTitle("Edit Barang");
             setData(data);
+            setKoli(data.koli);
             setIsOpen(true);
         },
     }));
@@ -83,8 +84,14 @@ function Form({ clients, newResi, ...props }, ref) {
                                 </label>
                                 <select
                                     name="client_id"
-                                    defaultValue={data.client_id}
-                                    className={`uppercase px-4 py-2 rounded shadow ${
+                                    value={data.client_id}
+                                    onChange={(e) =>
+                                        setData((d) => ({
+                                            ...d,
+                                            client_id: e.target.value,
+                                        }))
+                                    }
+                                    className={`form-select uppercase px-4 py-2 rounded shadow ${
                                         errors.client_id ? "border-red-500" : ""
                                     }`}
                                     id="input_client_id"
@@ -106,7 +113,13 @@ function Form({ clients, newResi, ...props }, ref) {
                                 <label htmlFor="input_resi">Resi</label>
                                 <input
                                     name="resi"
-                                    defaultValue={data.resi}
+                                    value={data.resi}
+                                    onChange={(e) =>
+                                        setData((d) => ({
+                                            ...d,
+                                            resi: e.target.value,
+                                        }))
+                                    }
                                     type="text"
                                     className={`uppercase px-4 py-2 rounded shadow read-only:bg-gray-50 text-green-600 ${
                                         errors.resi ? "border-red-500" : ""
@@ -124,7 +137,13 @@ function Form({ clients, newResi, ...props }, ref) {
                                 <label htmlFor="input_code">Kode</label>
                                 <input
                                     name="code"
-                                    defaultValue={data.code}
+                                    value={data.code}
+                                    onChange={(e) =>
+                                        setData((d) => ({
+                                            ...d,
+                                            code: e.target.value,
+                                        }))
+                                    }
                                     type="text"
                                     className={`uppercase px-4 py-2 rounded shadow ${
                                         errors.code ? "border-red-500" : ""
@@ -141,7 +160,13 @@ function Form({ clients, newResi, ...props }, ref) {
                                 <label htmlFor="input_label">Label</label>
                                 <input
                                     name="label"
-                                    defaultValue={data.label}
+                                    value={data.label}
+                                    onChange={(e) =>
+                                        setData((d) => ({
+                                            ...d,
+                                            label: e.target.value,
+                                        }))
+                                    }
                                     type="text"
                                     className={`px-4 py-2 rounded shadow ${
                                         errors.label ? "border-red-500" : ""
@@ -158,15 +183,20 @@ function Form({ clients, newResi, ...props }, ref) {
                                 <label htmlFor="input_koli">Jumlah Koli</label>
                                 <input
                                     name="koli"
-                                    defaultValue={data.koli}
+                                    onChange={(e) => {
+                                        setData((d) => ({
+                                            ...d,
+                                            koli: e.target.value,
+                                        }));
+                                        setKoli(e.target.value);
+                                    }}
                                     type="number"
                                     className={`px-4 py-2 rounded shadow ${
                                         errors.koli ? "border-red-500" : ""
                                     }`}
                                     id="input_koli"
-                                    value={koli}
+                                    value={data.koli || koli}
                                     min={1}
-                                    onChange={(e) => setKoli(e.target.value)}
                                 />
                                 {errors.koli && (
                                     <span className="text-red-500">
@@ -184,24 +214,28 @@ function Form({ clients, newResi, ...props }, ref) {
                                 />
                             </div>
                             <div className="mb-3 flex flex-col gap-2">
-                                <label htmlFor="input_weight_total">
+                                <label htmlFor="input_volume_weight">
                                     Total Berat
                                 </label>
                                 <input
-                                    name="weight_total"
+                                    name="volume_weight"
                                     type="number"
                                     className={`px-4 py-2 rounded shadow read-only:bg-gray-200 text-gray-700 ${
-                                        errors.weight_total
+                                        errors.volume_weight
                                             ? "border-red-500"
                                             : ""
                                     }`}
-                                    id="input_weight_total"
-                                    value={koliInputs.reduce((carry, item) => carry + parseInt(item?.weight || 0), 0)}
+                                    id="input_volume_weight"
+                                    value={koliInputs.reduce(
+                                        (carry, item) =>
+                                            carry + parseInt(item?.weight || 0),
+                                        0
+                                    )}
                                     readOnly
                                 />
-                                {errors.weight_total && (
+                                {errors.volume_weight && (
                                     <span className="text-red-500">
-                                        {errors.weight_total}
+                                        {errors.volume_weight}
                                     </span>
                                 )}
                             </div>
@@ -211,7 +245,13 @@ function Form({ clients, newResi, ...props }, ref) {
                                 </label>
                                 <select
                                     name="category_id"
-                                    defaultValue={data.category_id}
+                                    value={data.category_id}
+                                    onChange={(e) =>
+                                        setData((d) => ({
+                                            ...d,
+                                            category_id: e.target.value,
+                                        }))
+                                    }
                                     className={`px-4 py-2 rounded shadow ${
                                         errors.category_id
                                             ? "border-red-500"

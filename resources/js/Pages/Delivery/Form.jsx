@@ -47,11 +47,17 @@ function Form(
         create: () => {
             setTitle("Tambah Pengiriman");
             setData({});
+            setForm({});
             setIsOpen(true);
         },
         edit: (data) => {
             setTitle("Edit Pengiriman");
             setData(data);
+            setForm({ ...form, ...data, _method: "PUT" });
+            setOriginProvinceId(data.origin_province_id);
+            setDestProvinceId(data.dest_province_id);
+            setOriginCityId(data.origin_city_id);
+            setDestCityId(data.dest_city_id);
             setIsOpen(true);
         },
     }));
@@ -82,15 +88,23 @@ function Form(
         setForm("_method", "POST");
         if (data.id) {
             setForm("_method", "PUT");
-            return Inertia.post(route("deliveries.update", data.id), form);
+            console.log("form =>", form);
+            return Inertia.post(route("deliveries.update", data.id), {
+                ...form,
+                price: shippingRate.price,
+            });
         }
-        return Inertia.post(route("deliveries.store"), form, {
-            onSuccess: () => {
-                setForm("dest_province_id", "");
-                setForm("dest_city_id", "");
-                setForm("dest_district_id", "");
-            },
-        });
+        return Inertia.post(
+            route("deliveries.store"),
+            { ...form, price: shippingRate.price },
+            {
+                onSuccess: () => {
+                    setForm("dest_province_id", "");
+                    setForm("dest_city_id", "");
+                    setForm("dest_district_id", "");
+                },
+            }
+        );
     };
     useEffect(() => {
         setErrors(_errors);
@@ -109,6 +123,7 @@ function Form(
                     dest_district_id: form.dest_district_id,
                     origin_district_id: form.origin_district_id,
                     shipping_channel: form.service_type,
+                    product_id: form.product_id,
                 },
                 replace: true,
                 only: ["shippingRate"],

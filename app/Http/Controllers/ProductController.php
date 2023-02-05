@@ -19,7 +19,11 @@ class ProductController extends Controller
     {
         $todayProductCount = Product::whereDate('created_at', now()->format('Y-m-d'))->count();
         $newResi = now()->format('Ymd') . str_pad($todayProductCount + 1, 5, "0", STR_PAD_LEFT);
-        $products = Product::with(['category:id,name', 'client:id,code,name', 'kolis'])->whereDoesntHave('delivery')->search($request->search, 'code', 'name', 'resi_no')->paginate()->withQueryString();
+        $products = Product::search($request->search, 'code', 'label')->with(['category:id,name', 'client:id,code,name', 'kolis'])->where(function ($q) use ($request) {
+            $q->orWhereHas('client', function ($client) use ($request) {
+                $client->search($request->search, 'name');
+            });
+        })->whereDoesntHave('delivery')->paginate()->withQueryString();
         $categories = Category::all();
 
         $clients = function () use ($request) {
@@ -51,6 +55,7 @@ class ProductController extends Controller
             'length.*' => 'required|integer',
             'weight.*' => 'required|integer',
             'category_id' => 'required|integer',
+            'volume_weight' => 'required|integer',
         ]);
         $product = Product::create([
             'client_id' => $form['client_id'],
@@ -59,6 +64,7 @@ class ProductController extends Controller
             'label' => $form['label'],
             'koli' => $form['koli'],
             'category_id' => $form['category_id'],
+            'volume_weight' => $form['volume_weight'],
         ]);
         for ($koli = 0; $koli < $form['koli']; $koli++) {
             $product->kolis()->create([
@@ -92,6 +98,7 @@ class ProductController extends Controller
             'length.*' => 'required|integer',
             'weight.*' => 'required|integer',
             'category_id' => 'required|integer',
+            'volume_weight' => 'required|integer',
         ]);
         $product->update([
             'client_id' => $form['client_id'],
@@ -100,6 +107,7 @@ class ProductController extends Controller
             'label' => $form['label'],
             'koli' => $form['koli'],
             'category_id' => $form['category_id'],
+            'volume_weight' => $form['volume_weight'],
         ]);
         $product->kolis()->delete();
         for ($koli = 0; $koli < $form['koli']; $koli++) {

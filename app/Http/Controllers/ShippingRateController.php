@@ -25,8 +25,8 @@ class ShippingRateController extends Controller
             $shippingRates->getCollection()->transform(function ($item) {
                 $item->origin = "{$item->originProvince->name} - {$item->originCity->name} - {$item->originDistrict->name}";
                 $item->destination = "{$item->originProvince->name} - {$item->originCity->name} - {$item->originDistrict->name}";
-                $item->shipping_channel = Str::title($item->shipping_channel);
-                $item->price = "Rp. " . number_format($item->price, 0, ',', '.');
+                $item->shipping_channel_formatted = Str::title($item->shipping_channel);
+                $item->price_formatted = "Rp. " . number_format($item->price, 0, ',', '.');
                 return $item;
             });
             return $shippingRates;
@@ -93,7 +93,7 @@ class ShippingRateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ShippingRate $category)
+    public function update(Request $request, ShippingRate $shippingRate)
     {
         $form = $request->validate([
             'origin_province_id' => 'required|integer',
@@ -105,7 +105,7 @@ class ShippingRateController extends Controller
             'shipping_channel' => 'required|string',
             'price' => 'required|integer',
         ]);
-        $category->update($form);
+        $shippingRate->update($form);
         return back()->with('success', 'Tarif berhasil diperbaharui!');
     }
 
@@ -115,9 +115,9 @@ class ShippingRateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ShippingRate $category)
+    public function destroy(ShippingRate $shippingRate)
     {
-        $category->delete();
+        $shippingRate->delete();
         return back()->with('success', 'Kategory berhasil dihapus!');
     }
 }
