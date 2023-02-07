@@ -23,19 +23,31 @@ export const PrintBarcodeModal = forwardRef((props, ref) => {
                 includetext: true, // Show human-readable text
                 textxalign: "center", // Always good to set this
             });
-            canvas.toBlob((blob) => {
-                const printWindow = window.open("", "_blank", 300, 400);
-                setImgSrc(URL.createObjectURL(blob));
-                printWindow.document.head.innerHTML =
-                    window.document.head.innerHTML;
-                printWindow.document.body.innerHTML =
-                    printArea.current.outerHTML;
-                setTimeout(() => {
-                    printWindow.print();
-                    printWindow.close();
-                    setModalIsShow(false);
-                }, 500);
-            });
+            
+            const printWindow = window.open("", "_blank", 300, 400);
+            setImgSrc(canvas.toDataURL());
+            printWindow.document.head.innerHTML =
+                window.document.head.innerHTML;
+            printWindow.document.body.innerHTML =
+                printArea.current.outerHTML;
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+                setModalIsShow(false);
+            }, 500);
+            // canvas.toBlob((blob) => {
+            //     const printWindow = window.open("", "_blank", 300, 400);
+            //     setImgSrc(URL.createObjectURL(blob));
+            //     printWindow.document.head.innerHTML =
+            //         window.document.head.innerHTML;
+            //     printWindow.document.body.innerHTML =
+            //         printArea.current.outerHTML;
+            //     setTimeout(() => {
+            //         printWindow.print();
+            //         printWindow.close();
+            //         setModalIsShow(false);
+            //     }, 500);
+            // });
         }
     }, [resi, modalIsShow]);
     useImperativeHandle(ref, () => ({

@@ -16,7 +16,7 @@
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
         @inertiaHead
-        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:https://cargo.buatinapp.com">
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cargo.buatinapp.com">
     </head>
     <body class="font-sans antialiased">
         @inertia
