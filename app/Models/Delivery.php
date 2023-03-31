@@ -48,6 +48,10 @@ class Delivery extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+    public function warehouse()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
     public function client()
     {
         return $this->belongsTo(Client::class, 'client_id');

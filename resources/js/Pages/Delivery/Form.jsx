@@ -217,7 +217,7 @@ function Form(
                                     <option value="">Pilih Barang</option>
                                     {products.map((item, i) => (
                                         <option key={i} value={item.id}>
-                                            {item.code}
+                                            {item.label}
                                         </option>
                                     ))}
                                 </select>

@@ -4,6 +4,7 @@ export const PrintIcon = ({
     width = 16,
     height = 16,
     fill = "currentColor",
+    className=""
 }) => {
     return (
         <>
@@ -12,7 +13,7 @@ export const PrintIcon = ({
                 width={width}
                 height={height}
                 fill={fill}
-                className="bi bi-printer"
+                className={`bi bi-printer ${className}`}
                 viewBox="0 0 16 16"
             >
                 <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />

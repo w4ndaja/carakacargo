@@ -22,12 +22,34 @@ export default function ShippingRate({ deliveries, drivers }) {
                     <div className="text-3xl font-semibold text-indigo-900">
                         Laporan Pengiriman
                     </div>
+                </div>
+                <div className="flex w-full gap-4 p-4 border rounded mt-4">
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="jenis_pengiriman_id_input">Jenis Pengiriman</label>
+                        <select name="jenis_pengiriman_id" id="jenis_pengiriman_id_input" className="pl-4 pr-8 py-2 border rounded">
+                            <option value="">Pilih Jenis Pengiriman</option>
+                        </select>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="origin_city_id_input">Kota Asal</label>
+                        <select name="origin_city_id" id="origin_city_id_input" className="pl-4 pr-8 py-2 border rounded">
+                            <option value="">Pilih Kota Asal</option>
+                        </select>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="dest_city_id_input">Kota Tujuan</label>
+                        <select name="dest_city_id" id="dest_city_id_input" className="pl-4 pr-8 py-2 border rounded">
+                            <option value="">Pilih Kota Tujuan</option>
+                        </select>
+                    </div>
+                    <div className="ml-auto">
                     <button
                         onClick={printTable}
-                        className="ml-auto px-5 border border-blue-500 rounded-xl hover:shadow text-blue-500"
+                        className="ml-auto p-4 border border-blue-500 rounded-xl hover:shadow text-blue-500"
                     >
-                        <PrintIcon />
+                        <PrintIcon width={40} height={40} />
                     </button>
+                    </div>
                 </div>
                 <div
                     className="border rounded-xl mt-5 flex-1 mb-5 text-left"

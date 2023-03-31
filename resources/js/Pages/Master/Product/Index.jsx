@@ -7,7 +7,7 @@ import DeletePrompt from "./DeletePrompt";
 import Form from "./Form";
 import { PrintBarcodeModal } from "./PrintBarcodeModal";
 
-export default function Product({ products, clients, newResi }) {
+export default function Product({ products, clients, newResi, cities }) {
     const { flash } = usePage().props;
     const formRef = useRef();
     const deletePromptRef = useRef();
@@ -91,13 +91,22 @@ export default function Product({ products, clients, newResi }) {
                                     Resi
                                 </th>
                                 <th className="border-r last:border-r-0 border-b py-2">
-                                    Kode
+                                    Kota Tujuan
                                 </th>
                                 <th className="border-r last:border-r-0 border-b py-2">
                                     Label
                                 </th>
                                 <th className="border-r last:border-r-0 border-b py-2">
+                                    Kategori
+                                </th>
+                                <th className="border-r last:border-r-0 border-b py-2">
                                     Jumlah Koli
+                                </th>
+                                <th className="border-r last:border-r-0 border-b py-2">
+                                    Total Berat
+                                </th>
+                                <th className="border-r last:border-r-0 border-b py-2">
+                                    Total Kubikasi
                                 </th>
                                 <th className="border-r last:border-r-0 border-b py-2">
                                     #
@@ -114,13 +123,22 @@ export default function Product({ products, clients, newResi }) {
                                         {item.resi}
                                     </th>
                                     <th className="border-r last:border-r-0 border-b py-2">
-                                        {item.code}
+                                        {item.dest_city?.name}
                                     </th>
                                     <th className="border-r last:border-r-0 border-b py-2">
                                         {item.label}
                                     </th>
                                     <th className="border-r last:border-r-0 border-b py-2">
+                                        {item.category?.name}
+                                    </th>
+                                    <th className="border-r last:border-r-0 border-b py-2 text-right px-4">
                                         {item.koli}
+                                    </th>
+                                    <th className="border-r last:border-r-0 border-b py-2 text-right px-4">
+                                        {item.total_berat}
+                                    </th>
+                                    <th className="border-r last:border-r-0 border-b py-2 text-right px-4">
+                                        {item.total_kubikasi}
                                     </th>
                                     <th className="border-r last:border-r-0 border-b py-2">
                                         <div className="flex w-full justify-center gap-3">
@@ -208,8 +226,9 @@ export default function Product({ products, clients, newResi }) {
                     </table>
                 </div>
                 <div className="flex mt-auto">
-                    {products.links.map((item) => (
+                    {products.links.map((item, i) => (
                         <Link
+                        key={i}
                             href={item.url}
                             className="bg-indigo-600 text-white px-4 py-2 first:rounded-l-xl last:rounded-r-xl hover:bg-indigo-500"
                             dangerouslySetInnerHTML={{ __html: item.label }}
@@ -217,7 +236,7 @@ export default function Product({ products, clients, newResi }) {
                     ))}
                 </div>
             </div>
-            <Form ref={formRef} clients={clients} newResi={newResi} />
+            <Form ref={formRef} clients={clients} newResi={newResi} cities={cities} />
             <DeletePrompt ref={deletePromptRef} />
             <PrintBarcodeModal ref={printBarcodeModalRef} />
         </>

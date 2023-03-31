@@ -81,8 +81,10 @@ class DeliveryController extends Controller
                 'shipping_channel' => $request->shipping_channel,
             ])->first();
             if ($shippingRate) {
-                $shippingRate->price = Product::findOrNew($request->product_id)->volume_total || 0;
-                // $shippingRate->price = $shippingRate->price * floor(Product::find($request->product_id)->volume_total / 1000);
+                // $shippingRate->price = $shippingRate->price * ceil(Product::find($request->product_id)->total_kubikasi);
+                // $shippingRate->price = $shippingRate->price * floor(Product::find($request->product_id)->total_kubikasi);
+                $shippingRate->price = $shippingRate->price * (Product::find($request->product_id)->total_kubikasi);
+                
                 $shippingRate->_price = number_format($shippingRate->price, 0, ',', '.');
             }
             return $shippingRate;

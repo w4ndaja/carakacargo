@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravolt\Indonesia\Models\City;
 
 class Product extends Model
 {
@@ -29,5 +30,10 @@ class Product extends Model
     public function client()
     {
         return $this->belongsTo(Client::class, 'client_id');
+    }
+
+    public function destCity()
+    {
+        return $this->belongsTo(City::class, 'dest_city_id');
     }
 }

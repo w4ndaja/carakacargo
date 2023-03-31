@@ -24,8 +24,6 @@ class CreateProductsTable extends Migration
             $table->integer('height');
             $table->integer('length');
             $table->integer('weight');
-            $table->integer('volume_weight')->nullable();
-            $table->integer('volume_total')->nullable();
             $table->timestamps();
         });
     }

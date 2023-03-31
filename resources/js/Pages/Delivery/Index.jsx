@@ -102,7 +102,7 @@ export default function ShippingRate({
                                     Kode Driver
                                 </th>
                                 <th className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                    Kode Barang
+                                    Label Barang
                                 </th>
                                 <th className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
                                     Resi
@@ -143,7 +143,7 @@ export default function ShippingRate({
                                         {item.driver?.user?.name}
                                     </td>
                                     <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
-                                        {item.product?.code}
+                                        {item.product?.label}
                                     </td>
                                     <td className="border-r last:border-r-0 border-b py-2 px-2 whitespace-nowrap text-xs">
                                         {item.waybill}
